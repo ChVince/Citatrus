@@ -1,5 +1,5 @@
 'use strict';
-import React from 'react';
+import React , {Component} from 'react';
 import {
     StyleSheet,
     Text,
@@ -8,24 +8,26 @@ import {
 } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 
-function Camera(props) {
-    return (
-        <View style={styles.container}>
-            <RNCamera
-                ref={ref => {
-                    this.camera = ref;
-                }}
-                style={styles.preview}
-                type={RNCamera.Constants.Type.back}
-                captureAudio={false}
-            />
-            <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
-                <TouchableOpacity onPress={props.onSnapClick.bind(this, this.camera)} style={styles.capture}>
-                    <Text style={{ fontSize: 14 }}> SNAP </Text>
-                </TouchableOpacity>
+class Camera extends Component {
+    render() {
+        return (
+            <View style={styles.container}>
+                <RNCamera
+                    ref={ref => {
+                        this.camera = ref;
+                    }}
+                    style={styles.preview}
+                    type={RNCamera.Constants.Type.back}
+                    captureAudio={false}
+                />
+                <View style={{flex: 0, flexDirection: 'row', justifyContent: 'center'}}>
+                    <TouchableOpacity onPress={this.props.onSnapClick} style={styles.capture}>
+                        <Text style={{fontSize: 14}}> SNAP </Text>
+                    </TouchableOpacity>
+                </View>
             </View>
-        </View>
-    );
+        );
+    }
 }
 
 const styles = StyleSheet.create({

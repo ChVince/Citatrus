@@ -1,14 +1,10 @@
 import React from 'react';
-import CameraScreen from 'CameraContainer'
-import CitationScreen from 'CitationContainer'
-import NoteListScreen from 'NoteListContainer'
+import CameraScreen from './CameraContainer'
 import { createStackNavigator, createAppContainer } from "react-navigation";
 
 const AppNavigator = createStackNavigator(
     {
-        Camera: CameraScreen,
-        Citation: CitationScreen,
-        NoteList: NoteListScreen
+        Camera: CameraScreen
     },
     {
         initialRouteName: "Camera"
