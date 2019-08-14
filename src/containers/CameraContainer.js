@@ -11,7 +11,7 @@ const mapDispatchToProps = dispatch => {
                 await CameraRoll.saveToCameraRoll(data.uri);
                 dispatch(setPhotoForCitation(data.uri))
             }
-        };
+        }
     }
 };
 

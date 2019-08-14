@@ -1,7 +1,12 @@
 import * as actions from '../actions/actionTypes'
 
 const initialState = {
-    activePhoto: ''
+    activePhoto: '',
+    highlightedText: {
+        past: [],
+        present: '',
+        future: []
+    }
 };
 
 export default function(state = initialState, action) {
