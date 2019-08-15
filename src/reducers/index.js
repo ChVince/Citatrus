@@ -1,12 +1,12 @@
 import {combineReducers} from 'redux'
-import noteListReducer from './noteListReducer'
-import cameraReducer from './cameraReducer'
-import citationReducer from './citationReducer'
+import noteList from './noteListReducer'
+import camera from './cameraReducer'
+import citation from './citationReducer'
 
 const reducers = combineReducers({
-    noteListReducer,
-    cameraReducer,
-    citationReducer
+    noteList,
+    camera,
+    citation
 });
 
 export default reducers

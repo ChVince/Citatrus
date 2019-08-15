@@ -1,7 +1,7 @@
 import * as actions from '../actions/actionTypes'
 
 const initialState = {
-    activePhoto: '',
+    activePhotoURI: '',
     highlightedText: {
         past: [],
         present: '',
@@ -12,15 +12,16 @@ const initialState = {
 export default function(state = initialState, action) {
     switch (action.type) {
         case actions.SET_PHOTO_FOR_CITATION: {
-            return {
-                ...state,
-                activePhoto: action.payload
+            state = {
+            ...state,
+                activePhotoURI: action.payload
             };
+            return state;
         }
         case actions.STOP_PHOTO_CITATION: {
             return {
                 ...state,
-                activePhoto: ''
+                activePhotoURI: ''
             };
         }
         default:

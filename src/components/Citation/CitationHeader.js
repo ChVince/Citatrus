@@ -1,32 +1,36 @@
 'use strict';
-import React from 'react';
+import React, { Component }from 'react';
 import {View, Button, StyleSheet, TouchableOpacity} from 'react-native';
 
-export default function CitationHeader(props) {
-    return (
-        <View className='c-citation-header' style={styles.header}>
-            <TouchableOpacity style={styles.button} onPress={props.onBack}>
-                <Button style={styles.button}
-                    title="Back"
-                    color="#FFFFFF"
-                />
-            </TouchableOpacity>
-            <View>
-                <TouchableOpacity style={styles.button} onPress={props.onUndo}>
+export default class CitationHeader extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render () {
+        return (
+            <View className='c-citation-header' style={styles.header}>
+                <TouchableOpacity style={styles.button} onPress={this.props.onRedo}>
+                    <Button style={styles.button}
+                            title="Redo"
+                            color="#FFFFFF"
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={this.props.onUndo}>
                     <Button
-                        onPress={props.onUndo}
                         title="Undo"
                         color="#FFFFFF"
                     />
                 </TouchableOpacity>
             </View>
-        </View>
-    )
+        )
+    }
 }
 
 const styles = StyleSheet.create({
     header: {
-        display: 'flex',
+        flex: 0,
+        alignSelf: 'stretch',
         flexDirection: 'row',
         backgroundColor: 'grey',
         justifyContent: 'space-between'

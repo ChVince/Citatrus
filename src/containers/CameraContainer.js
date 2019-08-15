@@ -1,8 +1,9 @@
 import {setPhotoForCitation} from '../actions/cameraActions'
 import CameraRoll from "@react-native-community/cameraroll/js/CameraRoll";
 import { connect } from 'react-redux'
-import React from 'react'
+import React, {Component} from 'react'
 import Camera from '../components/Camera'
+
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -16,4 +17,21 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-export default connect(null, mapDispatchToProps)(Camera);
+
+class CameraContainer extends Component {
+    static navigationOptions = {
+        title: 'Camera'
+    };
+
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <Camera {...this.props}/>
+        )
+    }
+}
+
+export default connect(null, mapDispatchToProps)(CameraContainer);

@@ -1,22 +1,37 @@
 'use strict';
-import React from 'react';
-import {View} from 'react-native';
+import React, {Component} from 'react';
+import {StyleSheet, View} from 'react-native';
 import CitationHeader from './CitationHeader'
 import CitationImg from './CitationImg'
 import CitationFooter from './CitationFooter'
 
-export default function Citation(props) {
-    return (
-        <View className='c-citation-container'>
-            <CitationHeader
-                onBack={props.onBack}
-                onUndo={props.onUndo}
-                onRedo={props.onRedo}
-            />
-            <CitationImg/>
-            <CitationFooter
-                onSave={props.onSave}
-            />
-        </View>
-    )
+export default class Citation extends Component {
+    constructor(props) {
+        super(props);
+        console.warn(this.props)
+    }
+
+    render () {
+        return (
+            <View className='c-citation-container' style={styles.container}>
+                <CitationHeader
+                    onBack={this.props.onBack}
+                    onUndo={this.props.onUndo}
+                    onRedo={this.props.onRedo}
+                />
+                <CitationImg uri={this.props.uri}/>
+                <CitationFooter
+                    onSave={this.props.onSave}
+                />
+            </View>
+        )
+    }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        alignItems: 'center'
+    }
+});

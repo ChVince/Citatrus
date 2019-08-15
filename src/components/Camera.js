@@ -9,6 +9,15 @@ import {
 import { RNCamera } from 'react-native-camera';
 
 class Camera extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    onSnapClick() {
+        this.props.navigation.navigate('Citation');
+        this.props.onSnapClick(this.camera);
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -21,7 +30,7 @@ class Camera extends Component {
                     captureAudio={false}
                 />
                 <View style={{flex: 0, flexDirection: 'row', justifyContent: 'center'}}>
-                    <TouchableOpacity onPress={() => this.props.onSnapClick(this.camera)} style={styles.capture}>
+                    <TouchableOpacity onPress={() => this.onSnapClick()} style={styles.capture}>
                         <Text style={{fontSize: 14}}> SNAP </Text>
                     </TouchableOpacity>
                 </View>

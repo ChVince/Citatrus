@@ -1,14 +1,19 @@
 'use strict';
 import React from 'react';
-import {View, Image} from 'react-native';
+import {View, Image, StyleSheet} from 'react-native';
 
-export default function CitationFooter(props) {
+export default function CitationImg (props) {
     return (
-        <View className='c-citation-img'>
-            <Image
-                style={{width: 66, height: 58}}
-                source={{uri: props.uri }}
-            />
-        </View>
+        <Image style={styles.image}
+            source={{uri: props.uri}}
+        />
     )
 }
+
+const styles = StyleSheet.create({
+    image: {
+        flex: 3,
+        alignSelf: 'stretch',
+        backgroundColor: '#000'
+    }
+});
