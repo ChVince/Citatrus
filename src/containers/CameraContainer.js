@@ -16,4 +16,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-export default connect(mapDispatchToProps)(Camera);
+export default connect(null, mapDispatchToProps)(Camera);

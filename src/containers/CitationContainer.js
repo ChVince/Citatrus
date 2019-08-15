@@ -1,12 +1,10 @@
-import {setPhotoForCitation} from '../actions/cameraActions'
-import CameraRoll from "@react-native-community/cameraroll/js/CameraRoll";
 import { connect } from 'react-redux'
-import Citation from '../components/Citation'
+import Citation from '../components/Citation/index'
 
 const mapDispatchToProps = (dispatch) => {
     return {
         onBack: () => {
-
+            this.props.navigate('Camera')
         },
         onSave: () => {
 
@@ -20,13 +18,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-const mapStateToProps = state => ({
-    uri: state.uri
-});
-
-const CitationContainer = connect(
-    mapDispatchToProps,
-    mapStateToProps
-)(Citation);
-
-export default CitationContainer
+export default connect(mapDispatchToProps)(Citation);

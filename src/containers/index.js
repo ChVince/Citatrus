@@ -9,7 +9,7 @@ const AppNavigator = createStackNavigator(
         Citation: CitationScreen,
     },
     {
-        initialRouteName: "Citation"
+        initialRouteName: "Camera"
     }
 );
 
