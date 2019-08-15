@@ -4,16 +4,20 @@ import {View, Image, StyleSheet} from 'react-native';
 
 export default function CitationImg (props) {
     return (
-        <Image style={styles.image}
-            source={{uri: props.uri}}
-        />
+        <View style={styles.image}>
+            <Image style={{width: 300, height: 300}}
+                source={{uri: props.uri}}
+            />
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
     image: {
-        flex: 3,
+        flex: 1,
         alignSelf: 'stretch',
+        justifyContent: 'center',
+        alignItems: 'center',
         backgroundColor: '#000'
     }
 });

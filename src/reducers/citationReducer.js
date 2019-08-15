@@ -1,7 +1,7 @@
 import * as actions from '../actions/actionTypes'
 
 const initialState = {
-    activePhotoURI: '',
+    activePhotoURI: 'https://upload.wikimedia.org/wikipedia/commons/5/5f/Dr._Jekyll_and_Mr._Hyde_Text.jpg',
     highlightedText: {
         past: [],
         present: '',

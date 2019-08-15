@@ -1,9 +1,12 @@
 import {stopPhotoCitation} from '../actions/citationActions'
+import {setPhotoForCitation} from "../actions/cameraActions";
+
+import RNTextDetector from "react-native-text-detector";
 import { connect } from 'react-redux'
+
 import React, {Component, Fragment} from 'react'
 import Citation from '../components/Citation/index'
 import Camera from '../components/Camera'
-import {setPhotoForCitation} from "../actions/cameraActions";
 import CameraRoll from "@react-native-community/cameraroll/js/CameraRoll";
 
 const mapDispatchToProps = (dispatch) => {
@@ -12,8 +15,9 @@ const mapDispatchToProps = (dispatch) => {
             this.props.navigation.goBack();
             dispatch(stopPhotoCitation())
         },
-        onSave: () => {
-
+        onSave: async (uri) => {
+            let res = await RNTextDetector.detectFromUri(uri);
+            console.log('visionResp', res);
         },
         onUndo: () => {
 

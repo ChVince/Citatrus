@@ -34,6 +34,7 @@ target 'Citatrus' do
   pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
 
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+  pod 'RNTextDetector', path: '../node_modules/react-native-text-detector/ios'
 
   target 'CitatrusTests' do
     inherit! :search_paths

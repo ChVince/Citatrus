@@ -5,7 +5,7 @@ import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 export default function CitationFooter(props) {
     return (
         <View style={{flex: 0, flexDirection: 'row', justifyContent: 'center'}}>
-            <TouchableOpacity onPress={props.onSave} style={styles.save}>
+            <TouchableOpacity onPress={() => props.onSave(props.uri)} style={styles.save}>
                 <Text style={{fontSize: 14}}> Save </Text>
             </TouchableOpacity>
         </View>

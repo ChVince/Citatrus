@@ -8,7 +8,6 @@ import CitationFooter from './CitationFooter'
 export default class Citation extends Component {
     constructor(props) {
         super(props);
-        console.warn(this.props)
     }
 
     render () {
@@ -22,6 +21,7 @@ export default class Citation extends Component {
                 <CitationImg uri={this.props.uri}/>
                 <CitationFooter
                     onSave={this.props.onSave}
+                    uri={this.props.uri}
                 />
             </View>
         )
