@@ -30,7 +30,6 @@ target 'Citatrus' do
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
   pod 'react-native-cameraroll', :path => '../node_modules/@react-native-community/cameraroll'
-  pod 'RNTextDetector', path: '../node_modules/react-native-text-detector/ios'
 
   pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
 

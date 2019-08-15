@@ -21,7 +21,7 @@ class Camera extends Component {
                     captureAudio={false}
                 />
                 <View style={{flex: 0, flexDirection: 'row', justifyContent: 'center'}}>
-                    <TouchableOpacity onPress={this.props.onSnapClick} style={styles.capture}>
+                    <TouchableOpacity onPress={() => this.props.onSnapClick(this.camera)} style={styles.capture}>
                         <Text style={{fontSize: 14}}> SNAP </Text>
                     </TouchableOpacity>
                 </View>

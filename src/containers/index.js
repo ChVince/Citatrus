@@ -1,13 +1,15 @@
 import React from 'react';
 import CameraScreen from './CameraContainer'
+import CitationScreen from './CitationContainer'
 import { createStackNavigator, createAppContainer } from "react-navigation";
 
 const AppNavigator = createStackNavigator(
     {
-        Camera: CameraScreen
+        Camera: CameraScreen,
+        Citation: CitationScreen,
     },
     {
-        initialRouteName: "Camera"
+        initialRouteName: "Citation"
     }
 );
 
