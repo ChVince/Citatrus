@@ -1,8 +1,10 @@
 import {stopPhotoCitation} from '../actions/citationActions'
 import { connect } from 'react-redux'
-import React, {Component} from 'react'
+import React, {Component, Fragment} from 'react'
 import Citation from '../components/Citation/index'
-import citation from "../reducers/citationReducer";
+import Camera from '../components/Camera'
+import {setPhotoForCitation} from "../actions/cameraActions";
+import CameraRoll from "@react-native-community/cameraroll/js/CameraRoll";
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -18,6 +20,13 @@ const mapDispatchToProps = (dispatch) => {
         },
         onRedo: () => {
 
+        },
+        onSnapClick: async (camera) => {
+            if (camera) {
+                let data = await camera.takePictureAsync();
+                await CameraRoll.saveToCameraRoll(data.uri);
+                dispatch(setPhotoForCitation(data.uri))
+            }
         }
     }
 };
@@ -30,7 +39,7 @@ const mapStateToProps = (state) => {
 
 class CitationContainer extends Component {
     static navigationOptions = {
-        title: 'Citation'
+        title: 'Playground'
     };
 
     constructor(props) {
@@ -39,7 +48,12 @@ class CitationContainer extends Component {
 
     render() {
         return (
-            <Citation {...this.props}/>
+            <Fragment>{
+                this.props.uri ?
+                <Citation {...this.props}/> :
+                <Camera {...this.props}/>
+            }
+            </Fragment>
         )
     }
 }
