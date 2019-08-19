@@ -1,7 +1,7 @@
 import {stopPhotoCitation} from '../actions/citationActions'
 import {setPhotoForCitation} from "../actions/cameraActions";
 
-import RNTextDetector from "react-native-text-detector";
+import RNIosTesseract from "react-native-ios-tesseract";
 import { connect } from 'react-redux'
 
 import React, {Component, Fragment} from 'react'
@@ -15,9 +15,10 @@ const mapDispatchToProps = (dispatch) => {
             this.props.navigation.goBack();
             dispatch(stopPhotoCitation())
         },
-        onSave: async (uri) => {
-            let res = await RNTextDetector.detectFromUri(uri);
-            console.log('visionResp', res);
+        onSave:  (uri) => {
+            RNIosTesseract.recognize(uri).then((res) => {
+                console.log('visionResp', res);
+            });
         },
         onUndo: () => {
 
