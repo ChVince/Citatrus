@@ -98,6 +98,8 @@ PODS:
     - TesseractOCRiOS (~> 4.0.0)
   - RNReanimated (1.2.0):
     - React
+  - RNSketchCanvas (0.8.0):
+    - React
   - TesseractOCRiOS (4.0.0)
   - yoga (0.60.4.React)
 
@@ -128,6 +130,7 @@ DEPENDENCIES:
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNIosTesseract (from `../node_modules/react-native-ios-tesseract/ios`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
+  - "RNSketchCanvas (from `../node_modules/@terrylinla/react-native-sketch-canvas`)"
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -188,6 +191,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-ios-tesseract/ios"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
+  RNSketchCanvas:
+    :path: "../node_modules/@terrylinla/react-native-sketch-canvas"
   yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -219,9 +224,10 @@ SPEC CHECKSUMS:
   RNGestureHandler: 5329a942fce3d41c68b84c2c2276ce06a696d8b0
   RNIosTesseract: d0132f4ef799f265b3eeb717e090289fe94681cd
   RNReanimated: 1b52415c4302f198cb581282a0166690bad62c43
+  RNSketchCanvas: 6939b18677cd1794151cc3d8eb5a0a2158a4a05b
   TesseractOCRiOS: 90638afbe43d082433f2e76b384c7901d23956df
   yoga: c2c050f6ae6e222534760cc82f559b89214b67e2
 
-PODFILE CHECKSUM: 5c562f5e95b8554456b2c792b7d8e349cdf98c01
+PODFILE CHECKSUM: de2fc01b5b3c7d4639405c060377d10f495fe0b1
 
 COCOAPODS: 1.7.5

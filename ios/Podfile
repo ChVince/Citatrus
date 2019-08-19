@@ -36,6 +36,8 @@ target 'Citatrus' do
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
   pod 'RNIosTesseract', path: '../node_modules/react-native-ios-tesseract/ios'
 
+  pod 'RNSketchCanvas', :path => '../node_modules/@terrylinla/react-native-sketch-canvas'
+
   target 'CitatrusTests' do
     inherit! :search_paths
     # Pods for testing

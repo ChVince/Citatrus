@@ -1,11 +1,11 @@
 import {stopPhotoCitation} from '../actions/citationActions'
 import {setPhotoForCitation} from "../actions/cameraActions";
 
-import RNIosTesseract from "react-native-ios-tesseract";
+
 import { connect } from 'react-redux'
 
 import React, {Component, Fragment} from 'react'
-import Citation from '../components/Citation/index'
+import Citation from '../components/Citation'
 import Camera from '../components/Camera'
 import CameraRoll from "@react-native-community/cameraroll/js/CameraRoll";
 
@@ -15,10 +15,8 @@ const mapDispatchToProps = (dispatch) => {
             this.props.navigation.goBack();
             dispatch(stopPhotoCitation())
         },
-        onSave:  (uri) => {
-            RNIosTesseract.recognize(uri).then((res) => {
-                console.log('visionResp', res);
-            });
+        onSave: (paths, res) => {
+          //
         },
         onUndo: () => {
 

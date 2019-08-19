@@ -4,7 +4,7 @@ import { createStackNavigator, createAppContainer } from "react-navigation";
 
 const AppNavigator = createStackNavigator(
     {
-        Playground:PlaygroundScreen
+        Playground: PlaygroundScreen
     },
     {
         initialRouteName: "Playground"
