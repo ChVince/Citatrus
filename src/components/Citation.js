@@ -8,6 +8,43 @@ import RNIosTesseract from "react-native-ios-tesseract";
 let VIEW_HEIGHT = '';
 let VIEW_WIDTH = '';
 
+function normalizeDataByScale(lines, scaleH, scaleW) {
+    return lines.map((line) => {
+        let nextLine = {...line};
+        nextLine.start.x1 *= scaleW;
+        nextLine.start.y1 *= scaleH;
+
+        nextLine.end.x2 *= scaleW;
+        nextLine.end.y2 *= scaleH;
+        return nextLine
+    })
+}
+
+function isLineContainWord(line, wordCenter, accuracy) {
+    let res = (wordCenter.x - line.start.x1)/(line.end.x2 - line.start.x1) - (wordCenter.y - line.start.y1)/(line.end.y2 - line.start.y1)
+    return 10 >= Math.abs(res)
+}
+
+function _getWordCenter(bounding) {
+    return {
+        x: bounding.left + bounding.width/2,
+        y: bounding.top + bounding.height/2
+    }
+}
+
+function getWordsByIntersection(lines, words, accuracy) {
+    let result = [];
+    for (let line of lines) {
+        for (let word of words) {
+            let wordCenter = _getWordCenter(word.bounding);
+            if (isLineContainWord(line, wordCenter, accuracy)) {
+                result.push(word.text);
+            }
+        }
+    }
+    console.warn(result);
+}
+
 class CitationFooter extends Component {
     constructor(props) {
         super(props);
@@ -17,12 +54,22 @@ class CitationFooter extends Component {
         //TODO:// Implement
     }
 
+    async onAnnotate() {
+        //TODO: bugfix Algoritm
+        let {imageDimesions, recognizedText} = await RNIosTesseract.recognize(this.props.uri);
+        let scaleH = imageDimesions.imageHeight / VIEW_HEIGHT;
+        let scaleW = imageDimesions.imageWidth / VIEW_WIDTH;
+        let normalizedLines = normalizeDataByScale(this.props.lines, scaleH, scaleW);
+        let words = getWordsByIntersection(normalizedLines, recognizedText, this.props.lineWidth);
+
+    }
+
     render() {
         let {lineWidth} = this.props;
         return (
         <View style={{flex: 0, flexDirection: 'row', justifyContent: 'center'}}>
-            <TouchableOpacity onPress={() => this.onSave()} style={styles.save}>
-                <Text style={{fontSize: 14}}> Save </Text>
+            <TouchableOpacity onPress={() => this.onAnnotate()} style={styles.save}>
+                <Text style={{fontSize: 14}}> Annotate </Text>
             </TouchableOpacity>
            {/* <TouchableOpacity onPress={() => this.nextStrokeWidth()}>
                 <View style={styles.strokeWidthButton}>
@@ -170,14 +217,6 @@ class CitationSVG extends Component{
 
 
 export default class Citation extends Component {
-    async onSave() {
-        let paths = this.canvas.getPaths();
-        //TODO: norm
-        let {imageDimensions, recognizedText} = await RNIosTesseract.recognize(this.props.uri);
-        let scaleH = imageDimensions.height / VIEW_HEIGHT;
-        let scaleW = imageDimensions.width / VIEW_WIDTH;
-        this.props.onSave(paths, recognizedText);
-    }
 
     render() {
         return (
@@ -194,7 +233,7 @@ export default class Citation extends Component {
 const styles = StyleSheet.create({
     save: {
         flex: 0,
-        backgroundColor: '#5397ff',
+        backgroundColor: '#ffd73e',
         borderRadius: 5,
         padding: 15,
         paddingHorizontal: 20,

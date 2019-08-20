@@ -36,7 +36,6 @@ target 'Citatrus' do
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
   pod 'RNIosTesseract', path: '../node_modules/react-native-ios-tesseract/ios'
 
-
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
   target 'CitatrusTests' do
