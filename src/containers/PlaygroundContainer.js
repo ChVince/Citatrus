@@ -1,6 +1,5 @@
-import {stopPhotoCitation} from '../actions/citationActions'
-import {setPhotoForCitation} from "../actions/cameraActions";
-
+import citationActions from '../actions/citationActions'
+import cameraActions from "../actions/cameraActions";
 
 import { connect } from 'react-redux'
 
@@ -11,24 +10,30 @@ import CameraRoll from "@react-native-community/cameraroll/js/CameraRoll";
 
 const mapDispatchToProps = (dispatch) => {
     return {
+/*
         onBack: () => {
             this.props.navigation.goBack();
-            dispatch(stopPhotoCitation())
+            dispatch(citationActions.stopPhotoCitation())
         },
-        onSave: (paths, res) => {
-          //
-        },
-        onUndo: () => {
+*/
 
+        onCitationStart: (line) => {
+            dispatch(citationActions.addCitationLine(line))
         },
-        onRedo: () => {
 
+        onCitationRelease: () => {
+            dispatch(citationActions.releaseCitationLine())
         },
+
+        onCitationUpdate: (line) => {
+            dispatch(citationActions.updateCitationLine(line));
+        },
+
         onSnapClick: async (camera) => {
             if (camera) {
                 let data = await camera.takePictureAsync();
                 await CameraRoll.saveToCameraRoll(data.uri);
-                dispatch(setPhotoForCitation(data.uri))
+                dispatch(cameraActions.setPhotoForCitation(data.uri))
             }
         }
     }
@@ -37,6 +42,10 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
     return {
         uri: state.citation.activePhotoURI,
+        lines: state.citation.lines,
+        activeLine: state.citation.activeLine,
+        lineWidth: state.citation.lineWidth,
+        lineColor: state.citation.lineColor
     }
 };
 
