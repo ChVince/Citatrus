@@ -7,6 +7,7 @@ import {
     View
 } from 'react-native';
 import { RNCamera } from 'react-native-camera';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 class Camera extends Component {
     constructor(props) {
@@ -21,6 +22,9 @@ class Camera extends Component {
     render() {
         return (
             <View style={styles.container}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('NoteList')}>
+                    <Icon name="right" size={20} color="white" style={styles.backButton}/>
+                </TouchableOpacity>
                 <RNCamera
                     ref={ref => {
                         this.camera = ref;
@@ -30,8 +34,8 @@ class Camera extends Component {
                     captureAudio={false}
                 />
                 <View style={{flex: 0, flexDirection: 'row', justifyContent: 'center'}}>
-                    <TouchableOpacity onPress={() => this.onSnapClick()} style={styles.capture}>
-                        <Text style={{fontSize: 14}}> SNAP </Text>
+                    <TouchableOpacity onPress={() => this.onSnapClick()} style={styles.captureOuter}>
+                        <View  style={styles.captureInner}/>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -40,6 +44,10 @@ class Camera extends Component {
 }
 
 const styles = StyleSheet.create({
+    backButton: {
+        alignSelf: 'flex-end',
+        margin: 30
+    },
     container: {
         flex: 1,
         flexDirection: 'column',
@@ -50,15 +58,24 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         alignItems: 'center',
     },
-    capture: {
+    captureOuter: {
         flex: 0,
-        backgroundColor: '#fff',
-        borderRadius: 5,
-        padding: 15,
-        paddingHorizontal: 20,
+        backgroundColor: '#929292',
+        borderRadius: 60/2,
+        height: 60,
+        width: 60,
         alignSelf: 'center',
-        margin: 20,
+        marginTop: 20,
+        marginBottom: 40
     },
+    captureInner: {
+        backgroundColor: '#fff',
+        borderRadius: 40/2,
+        alignSelf: 'center',
+        marginTop: 10,
+        height: 40,
+        width: 40
+    }
 });
 
 export default Camera;

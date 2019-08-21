@@ -50,10 +50,6 @@ const mapStateToProps = (state) => {
 };
 
 class CitationContainer extends Component {
-    static navigationOptions = {
-        title: 'Playground'
-    };
-
     constructor(props) {
         super(props);
     }

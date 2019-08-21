@@ -1,13 +1,21 @@
 import React from 'react';
 import PlaygroundScreen from './PlaygroundContainer'
-import { createStackNavigator, createAppContainer } from "react-navigation";
+import NoteListScreen from './NoteListContainer'
+import { createMaterialTopTabNavigator, createAppContainer } from "react-navigation";
 
-const AppNavigator = createStackNavigator(
+const AppNavigator = createMaterialTopTabNavigator(
     {
-        Playground: PlaygroundScreen
+        Playground: { screen: PlaygroundScreen },
+        NoteList: { screen: NoteListScreen },
     },
     {
-        initialRouteName: "Playground"
+        swipeEnabled: true,
+        animationEnabled: true,
+        tabBarOptions: {
+            style: {
+                display: 'none'
+            }
+        }
     }
 );
 

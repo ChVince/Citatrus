@@ -1,7 +1,7 @@
 import * as actions from '../actions/actionTypes'
 
 const initialState = {
-    activePhotoURI: 'http://www.rore-sanctifica.org/bibilotheque_rore_sanctifica/10-eglises_et_rites_orientaux_et_sources/testamentum_domini/1973-voobus-testamentum_domini/testamentum_traduit_(anglais)/English-38.jpg',
+    activePhotoURI: '',
     lines: [], // {id: ; start:x1,y1 ; end:x2,y2},
     activeLine: null,
     lineWidth: '10',

@@ -1,34 +1,34 @@
 import * as actions from '../actions/actionTypes'
 
 const initialState = {
-    noteList: []
+    list: []
 };
 
 export default function(state = initialState, action) {
     switch (action.type) {
         case actions.ADD_NOTE: {
-            let nextNoteList = [...state.noteList];
+            let nextNoteList = [...state.list];
             nextNoteList.push(action.payload);
 
             return {
                 ...state,
-                noteList: nextNoteList
+                list: nextNoteList
             };
         }
         case actions.REMOVE_NOTE: {
-            let noteIdx = state.noteList.indexOf(action.payload);
+            let noteIdx = state.list.indexOf(action.payload);
 
             return {
                 ...state,
-                noteList: state.noteList.splice(noteIdx, 1)
+                list: state.list.splice(noteIdx, 1)
             };
         }
         case actions.EDIT_NOTE: {
-            let noteIdx = state.noteList.indexOf(action.payload.idx);
+            let noteIdx = state.list.indexOf(action.payload.idx);
 
             return {
                 ...state,
-                noteList: state.noteList.splice(noteIdx, 1, action.payload.note)
+                list: state.list.splice(noteIdx, 1, action.payload.note)
             };
         }
         default:

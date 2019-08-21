@@ -42,7 +42,6 @@ function getWordsByIntersection(lines, words, accuracy) {
             }
         }
     }
-    console.warn(result);
 }
 
 class CitationFooter extends Component {
