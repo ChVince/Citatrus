@@ -74,20 +74,21 @@ class CitationFooter extends Component {
     }
 
     render() {
-        let {lineWidth} = this.props;
+        let {lineWidth, lineColor} = this.props;
         let isProcessingDisabled = this.props.lines.length === 0;
         return (
         <View style={styles.footer}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <Slider
                     style={[styles.widthSlider]}
-                    minimumValue={5}
+                    minimumValue={10}
                     maximumValue={25}
+                    minimumTrackTintColor={'#ffd73e'}
                     value={lineWidth}
 
-                    onValueChange={(value) => this.props.setCitationLineWidth(value)}
+                    onSlidingComplete={(value) => this.props.setCitationLineWidth(value)}
                 />
-                <View style={{height: lineWidth, width: lineWidth, borderRadius: lineWidth/2 , backgroundColor: "#fff"}}/>
+                <View style={StyleSheet.flatten(styles.widthIndicator(lineWidth, lineColor))}/>
             </View>
             <TouchableOpacity  disabled={isProcessingDisabled} style={[isProcessingDisabled ? styles.disabledButton : '']} onPress={() => this.onAnnotate()}>
                 <Icon name="check" size={35} color="#ffd73e"/>
@@ -281,7 +282,15 @@ const styles = StyleSheet.create({
 
     widthSlider: {
         marginRight: 5,
-        height: 25,
-        width: 90
-    }
+        height: 15,
+        width: 75
+    },
+
+    widthIndicator: (lineWidth) => ({
+        height: lineWidth,
+        width: lineWidth,
+        borderColor: '#fff',
+        borderWidth: 2,
+        borderRadius: lineWidth/2
+    })
 });
