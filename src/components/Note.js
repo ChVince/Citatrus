@@ -4,7 +4,8 @@ import {
     View,
     StyleSheet,
     TouchableOpacity,
-    TextInput
+    TextInput,
+    Share
 } from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
 
@@ -21,6 +22,13 @@ export default class Note extends Component {
         this.props.removeActiveNote();
     }
 
+    onShare(text) {
+        Share.share({
+            message: text,
+        });
+
+    }
+
     render() {
         let activeNoteId = this.props.activeNoteId;
         let activeNote = this.props.noteList[activeNoteId];
@@ -29,14 +37,17 @@ export default class Note extends Component {
                 <View style={styles.topBar}>
                     <TouchableOpacity style={styles.backButton} onPress={() => this.onBack()}>
                         <Icon name="chevron-left" size={35} color="black"/>
-                        <Text style={{marginBottom: 7}}>Notes</Text>
+                        <Text style={{marginBottom: 7, fontSize: 16}}>Notes</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.shareButton} onPress={() => this.onShare(activeNote.text)}>
+                        <Icon name="share-apple" size={35} color="black"/>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.textarea}>
                     <TextInput onChangeText={(text) => this.props.updateNote(text)} value={activeNote.text}/>
                 </View>
                 <View style={styles.bottomBar}>
-                    <TouchableOpacity style={styles.removeButton} onPress={() => this.onRemoveActiveNote()}>
+                    <TouchableOpacity onPress={() => this.onRemoveActiveNote()}>
                         <Icon name="trash" size={35} color="black"/>
                     </TouchableOpacity>
                 </View>
@@ -61,7 +72,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         borderBottomColor: '#C8C8C8',
         borderBottomWidth: 1,
-        justifyContent: 'flex-end'
+        flexDirection: 'row',
+        alignItems: 'flex-end',
+        justifyContent: 'space-between',
+        paddingLeft: 5,
+        paddingRight: 8
     },
 
     backButton: {
@@ -77,15 +92,12 @@ const styles = StyleSheet.create({
     },
 
     bottomBar: {
-        height: 70,
+        height: 50,
         backgroundColor: '#fff',
-        justifyContent: 'flex-start',
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        paddingHorizontal: 5,
         borderTopColor: '#C8C8C8',
         borderTopWidth: 1
-    },
-
-    removeButton: {
-        marginTop: 10,
-        marginLeft: 3
     }
 });
