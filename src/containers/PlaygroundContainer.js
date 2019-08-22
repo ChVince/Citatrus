@@ -43,7 +43,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
     return {
         uri: state.citation.activePhotoURI,
-        lines: state.citation.lines,
+        lines: state.citation.lines.present,
         activeLine: state.citation.activeLine,
         lineWidth: state.citation.lineWidth,
         lineColor: state.citation.lineColor

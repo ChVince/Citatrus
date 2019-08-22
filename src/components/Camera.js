@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
 
     buttonShadow: {
         textAlign: 'center',
-        shadowOpacity: 0.4,
+        shadowOpacity: 0.8,
         textShadowOffset: {
             width: 0,
             height: 1

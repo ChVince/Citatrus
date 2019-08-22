@@ -66,13 +66,14 @@ class CitationFooter extends Component {
 
     render() {
         let {lineWidth} = this.props;
+        let isProcessingDisabled = this.props.lines.length === 0;
         return (
         <View style={styles.footer}>
             <TouchableOpacity onPress={() => this.onAnnotate()} style={[styles.footerButton, styles.widthButton]}>
                 <Text style={{fontSize: 14}}> Width </Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.onAnnotate()} style={[styles.footerButton, styles.annotateButton]}>
-                <Text style={{fontSize: 14}}> Annotate </Text>
+            <TouchableOpacity  disabled={isProcessingDisabled} style={[isProcessingDisabled ? styles.disabledButton : '']} onPress={() => this.onAnnotate()}>
+                <Icon name="check" size={35} color="#ffd73e"/>
             </TouchableOpacity>
         </View>
        )
@@ -164,7 +165,8 @@ class CitationSVG extends Component{
                 x2: end.x,
                 y2: end.y
             } : {
-                x2: start.x,
+                //show new line as text cursor
+                x2: start.x + 2,
                 y2: start.y
             }
         }
@@ -244,6 +246,10 @@ const styles = StyleSheet.create({
         top: 35
     },
 
+    disabledButton: {
+        opacity: 0.5
+    },
+
     closeButton: {
         left: 15,
     },
@@ -254,15 +260,11 @@ const styles = StyleSheet.create({
 
     buttonShadow: {
         textAlign: 'center',
-        shadowOpacity: 0.4,
+        shadowOpacity: 0.8,
         textShadowOffset: {
             width: 0,
             height: 1
         }
-    },
-
-    annotateButton: {
-        backgroundColor: '#ffd73e'
     },
 
     widthButton: {

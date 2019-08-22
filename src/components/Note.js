@@ -26,7 +26,6 @@ export default class Note extends Component {
         Share.share({
             message: text,
         });
-
     }
 
     render() {
