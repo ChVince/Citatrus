@@ -1,6 +1,19 @@
 import * as actions from './actionTypes'
 
 export default {
+    setActiveNote(id) {
+        return {
+            type: actions.SET_ACTIVE_NOTE,
+            payload: id
+        }
+    },
+
+    releaseActiveNote() {
+        return {
+            type: actions.RELEASE_ACTIVE_NOTE
+        }
+    },
+
     addNote(note) {
         return {
             type: actions.ADD_NOTE,
@@ -15,10 +28,16 @@ export default {
         }
     },
 
-    editNote(note) {
+    removeActiveNote() {
         return {
-            type: actions.EDIT_NOTE,
-            payload: note
+            type: actions.RELEASE_ACTIVE_NOTE
+        }
+    },
+
+    updateNote(id, text) {
+        return {
+            type: actions.UPDATE_NOTE,
+            payload: text
         }
     }
 }

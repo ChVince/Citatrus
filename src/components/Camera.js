@@ -7,7 +7,7 @@ import {
     View
 } from 'react-native';
 import { RNCamera } from 'react-native-camera';
-import Icon from 'react-native-vector-icons/AntDesign';
+import Icon from 'react-native-vector-icons/EvilIcons';
 
 class Camera extends Component {
     constructor(props) {
@@ -22,8 +22,8 @@ class Camera extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('NoteList')}>
-                    <Icon name="right" size={20} color="white" style={styles.backButton}/>
+                <TouchableOpacity style={styles.backButton} onPress={() => this.props.navigation.navigate('NoteList')}>
+                    <Icon name="chevron-right" size={35} color="white"/>
                 </TouchableOpacity>
                 <RNCamera
                     ref={ref => {
@@ -33,46 +33,50 @@ class Camera extends Component {
                     type={RNCamera.Constants.Type.back}
                     captureAudio={false}
                 />
-                <View style={{flex: 0, flexDirection: 'row', justifyContent: 'center'}}>
+
                     <TouchableOpacity onPress={() => this.onSnapClick()} style={styles.captureOuter}>
-                        <View  style={styles.captureInner}/>
+                       <View  style={styles.captureInner}/>
                     </TouchableOpacity>
-                </View>
+
             </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    backButton: {
-        alignSelf: 'flex-end',
-        margin: 30
-    },
     container: {
         flex: 1,
-        flexDirection: 'column',
         backgroundColor: 'black',
     },
-    preview: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        alignItems: 'center',
+
+    backButton: {
+        position: 'absolute',
+        right: 25,
+        top: 35,
+        zIndex: 1
     },
+
+    preview: {
+        height: '100%'
+    },
+
     captureOuter: {
-        flex: 0,
+        alignItems: 'center',
+        justifyContent: 'center',
         backgroundColor: '#929292',
         borderRadius: 60/2,
         height: 60,
         width: 60,
+        zIndex: 10,
+        opacity: 0.8,
+        position: 'absolute',
         alignSelf: 'center',
-        marginTop: 20,
-        marginBottom: 40
+        bottom: 30
     },
+
     captureInner: {
         backgroundColor: '#fff',
         borderRadius: 40/2,
-        alignSelf: 'center',
-        marginTop: 10,
         height: 40,
         width: 40
     }

@@ -16,5 +16,8 @@ export const REDO_CITATION = 'REDO_CITATION';*/
 
 // --- NoteList ---
 export const ADD_NOTE = 'ADD_NOTE';
+export const REMOVE_ACTIVE_NOTE = 'REMOVE_ACTIVE_NOTE';
 export const REMOVE_NOTE = 'REMOVE_NOTE';
-export const EDIT_NOTE = 'EDIT_NOTE';
+export const UPDATE_NOTE = 'UPDATE_NOTE';
+export const SET_ACTIVE_NOTE = 'SET_ACTIVE_NOTE';
+export const RELEASE_ACTIVE_NOTE = 'SET_ACTIVE_NOTE';
