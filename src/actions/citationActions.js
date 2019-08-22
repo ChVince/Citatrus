@@ -25,5 +25,17 @@ export default {
         return {
             type: actions.RELEASE_LINE_CITATION
         }
+    },
+
+    releasePhotoCitation() {
+        return {
+            type: actions.RELEASE_PHOTO_CITATION
+        }
+    },
+
+    undoPhotoCitation() {
+        return {
+            type: actions.UNDO_PHOTO_CITATION
+        }
     }
 }

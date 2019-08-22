@@ -10,19 +10,20 @@ import CameraRoll from "@react-native-community/cameraroll/js/CameraRoll";
 
 const mapDispatchToProps = (dispatch) => {
     return {
-/*
-        onBack: () => {
-            this.props.navigation.goBack();
-            dispatch(citationActions.stopPhotoCitation())
+        onPhotoRelease: () => {
+            dispatch(citationActions.releasePhotoCitation());
         },
-*/
+
+        onCitationUndo: () => {
+            dispatch(citationActions.undoPhotoCitation());
+        },
 
         onCitationStart: (line) => {
-            dispatch(citationActions.addCitationLine(line))
+            dispatch(citationActions.addCitationLine(line));
         },
 
         onCitationRelease: () => {
-            dispatch(citationActions.releaseCitationLine())
+            dispatch(citationActions.releaseCitationLine());
         },
 
         onCitationUpdate: (line) => {
@@ -33,7 +34,7 @@ const mapDispatchToProps = (dispatch) => {
             if (camera) {
                 let data = await camera.takePictureAsync();
                 await CameraRoll.saveToCameraRoll(data.uri);
-                dispatch(cameraActions.setPhotoForCitation(data.uri))
+                dispatch(cameraActions.setPhotoForCitation(data.uri));
             }
         }
     }

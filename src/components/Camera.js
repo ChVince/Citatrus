@@ -22,7 +22,7 @@ class Camera extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <TouchableOpacity style={styles.backButton} onPress={() => this.props.navigation.navigate('NoteList')}>
+                <TouchableOpacity style={[styles.toListButton, styles.buttonShadow]} onPress={() => this.props.navigation.navigate('NoteList')}>
                     <Icon name="chevron-right" size={35} color="white"/>
                 </TouchableOpacity>
                 <RNCamera
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'black',
     },
 
-    backButton: {
+    toListButton: {
         position: 'absolute',
         right: 25,
         top: 35,
@@ -79,6 +79,15 @@ const styles = StyleSheet.create({
         borderRadius: 40/2,
         height: 40,
         width: 40
+    },
+
+    buttonShadow: {
+        textAlign: 'center',
+        shadowOpacity: 0.4,
+        textShadowOffset: {
+            width: 0,
+            height: 1
+        }
     }
 });
 

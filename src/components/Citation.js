@@ -3,6 +3,7 @@ import React, {Component, Fragment} from 'react';
 import Svg, {Line} from 'react-native-svg';
 import {View, StyleSheet, TouchableOpacity, Text, Button, ImageBackground, PanResponder} from 'react-native';
 import RNIosTesseract from "react-native-ios-tesseract";
+import Icon from 'react-native-vector-icons/EvilIcons';
 
 
 let VIEW_HEIGHT = '';
@@ -66,20 +67,13 @@ class CitationFooter extends Component {
     render() {
         let {lineWidth} = this.props;
         return (
-        <View style={{flex: 0, flexDirection: 'row', justifyContent: 'center'}}>
-            <TouchableOpacity onPress={() => this.onAnnotate()} style={styles.save}>
+        <View style={styles.footer}>
+            <TouchableOpacity onPress={() => this.onAnnotate()} style={[styles.footerButton, styles.widthButton]}>
+                <Text style={{fontSize: 14}}> Width </Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.onAnnotate()} style={[styles.footerButton, styles.annotateButton]}>
                 <Text style={{fontSize: 14}}> Annotate </Text>
             </TouchableOpacity>
-           {/* <TouchableOpacity onPress={() => this.nextStrokeWidth()}>
-                <View style={styles.strokeWidthButton}>
-                    <View style={{
-                        backgroundColor: 'white', marginHorizontal: 2.5,
-                        width: Math.sqrt(lineWidth / 3) * 10,
-                        height: Math.sqrt(lineWidth / 3) * 10,
-                        borderRadius: Math.sqrt(lineWidth / 3) * 10 / 2
-                    }} />
-                </View>
-            </TouchableOpacity>*/}
         </View>
        )
     }
@@ -92,20 +86,14 @@ class CitationHeader extends Component{
 
     render() {
         return (
-            <View className='c-citation-header' style={styles.header}>
-                <TouchableOpacity style={styles.button} onPress={this.props.onRedo}>
-                    <Button style={styles.button}
-                            title="Redo"
-                            color="#FFFFFF"
-                    />
+            <Fragment>
+                <TouchableOpacity style={[styles.headerButton, styles.closeButton, styles.buttonShadow]} onPress={() => this.props.onPhotoRelease()}>
+                    <Icon name="close" size={35} color="white"/>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={this.props.onUndo}>
-                    <Button
-                        title="Undo"
-                        color="#FFFFFF"
-                    />
+                <TouchableOpacity style={[styles.headerButton, styles.undoButton, styles.buttonShadow]} onPress={() => this.props.onCitationUndo()}>
+                    <Icon name="undo" size={35} color="white"/>
                 </TouchableOpacity>
-            </View>
+            </Fragment>
         )
     }
 }
@@ -195,12 +183,12 @@ class CitationSVG extends Component{
             />
         );
         return (
-            <View {...this._panResponder.panHandlers} style={{ flex: 1, flexDirection: 'row' }} onLayout={(event) => {
+            <View {...this._panResponder.panHandlers} style={{flex: 1}} onLayout={(event) => {
                 let layout = event.nativeEvent.layout;
                 VIEW_WIDTH = layout.width;
                 VIEW_HEIGHT = layout.height;
             }}>
-                <ImageBackground source={{uri: this.props.uri}} style={{width: '100%', height: '100%'}}>
+                <ImageBackground  resizeMode={'stretch'} source={{uri: this.props.uri}} style={{width: '100%', height: '100%'}}>
                     <Svg
                         height="100%"
                         width="100%"
@@ -219,38 +207,65 @@ export default class Citation extends Component {
 
     render() {
         return (
-            <Fragment>
+            <View style={styles.container}>
                 <CitationHeader {...this.props} />
                 <CitationSVG {...this.props} />
                 <CitationFooter {...this.props} />
-            </Fragment>
+            </View>
         );
     }
 }
 
 
 const styles = StyleSheet.create({
-    save: {
-        flex: 0,
-        backgroundColor: '#ffd73e',
-        borderRadius: 5,
-        padding: 15,
-        paddingHorizontal: 20,
-        alignSelf: 'center',
-        margin: 40
+    container: {
+        flex: 1
     },
-    header: {
-        flex: 0,
-        alignSelf: 'stretch',
+
+    footer: {
+        height: 55,
+        backgroundColor: '#000',
         flexDirection: 'row',
-        backgroundColor: 'grey',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingHorizontal: 15
     },
-    button: {
-        backgroundColor: '#a8a2a7',
+
+    footerButton: {
+        height: 30,
+        justifyContent: 'center',
+        borderRadius: 5,
+        padding: 5
     },
-    strokeWidthButton: {
-        marginHorizontal: 2.5, marginVertical: 8, width: 30, height: 30, borderRadius: 15,
-        justifyContent: 'center', alignItems: 'center', backgroundColor: '#39579A'
+
+    headerButton: {
+        position: 'absolute',
+        zIndex: 1,
+        top: 35
+    },
+
+    closeButton: {
+        left: 15,
+    },
+
+    undoButton: {
+        right: 15
+    },
+
+    buttonShadow: {
+        textAlign: 'center',
+        shadowOpacity: 0.4,
+        textShadowOffset: {
+            width: 0,
+            height: 1
+        }
+    },
+
+    annotateButton: {
+        backgroundColor: '#ffd73e'
+    },
+
+    widthButton: {
+        backgroundColor: '#f3f3f3'
     }
 });
