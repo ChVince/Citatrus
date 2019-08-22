@@ -1,8 +1,17 @@
 'use strict';
 import React, {Component, Fragment} from 'react';
 import Svg, {Line} from 'react-native-svg';
-import {View, StyleSheet, TouchableOpacity, Text, Button, ImageBackground, PanResponder} from 'react-native';
-import RNIosTesseract from "react-native-ios-tesseract";
+import {
+    View,
+    StyleSheet,
+    TouchableOpacity,
+    Text,
+    Button,
+    ImageBackground,
+    PanResponder
+} from 'react-native';
+import Slider from '@react-native-community/slider';
+import RNIosTesseract from 'react-native-ios-tesseract';
 import Icon from 'react-native-vector-icons/EvilIcons';
 
 
@@ -69,9 +78,17 @@ class CitationFooter extends Component {
         let isProcessingDisabled = this.props.lines.length === 0;
         return (
         <View style={styles.footer}>
-            <TouchableOpacity onPress={() => this.onAnnotate()} style={[styles.footerButton, styles.widthButton]}>
-                <Text style={{fontSize: 14}}> Width </Text>
-            </TouchableOpacity>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Slider
+                    style={[styles.widthSlider]}
+                    minimumValue={5}
+                    maximumValue={25}
+                    value={lineWidth}
+
+                    onValueChange={(value) => this.props.setCitationLineWidth(value)}
+                />
+                <View style={{height: lineWidth, width: lineWidth, borderRadius: lineWidth/2 , backgroundColor: "#fff"}}/>
+            </View>
             <TouchableOpacity  disabled={isProcessingDisabled} style={[isProcessingDisabled ? styles.disabledButton : '']} onPress={() => this.onAnnotate()}>
                 <Icon name="check" size={35} color="#ffd73e"/>
             </TouchableOpacity>
@@ -157,6 +174,8 @@ class CitationSVG extends Component{
         //init line as point
         return {
             id: this.props.activeLine ? this.props.activeLine.id : Math.floor(Math.random() * 100000),
+            color: this.props.lineColor,
+            width: this.props.lineWidth,
             start: {
                 x1: start.x,
                 y1: start.y
@@ -180,8 +199,8 @@ class CitationSVG extends Component{
                 y1={line.start.y1}
                 x2={line.end.x2}
                 y2={line.end.y2}
-                stroke={this.props.lineColor}
-                strokeWidth={this.props.lineWidth}
+                stroke={line.color}
+                strokeWidth={line.width}
             />
         );
         return (
@@ -233,13 +252,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15
     },
 
-    footerButton: {
-        height: 30,
-        justifyContent: 'center',
-        borderRadius: 5,
-        padding: 5
-    },
-
     headerButton: {
         position: 'absolute',
         zIndex: 1,
@@ -267,7 +279,9 @@ const styles = StyleSheet.create({
         }
     },
 
-    widthButton: {
-        backgroundColor: '#f3f3f3'
+    widthSlider: {
+        marginRight: 5,
+        height: 25,
+        width: 90
     }
 });

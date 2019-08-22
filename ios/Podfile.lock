@@ -67,6 +67,8 @@ PODS:
     - React
   - react-native-cameraroll (1.1.1):
     - React
+  - react-native-slider (2.0.0):
+    - React
   - React-RCTActionSheet (0.60.4):
     - React-Core (= 0.60.4)
   - React-RCTAnimation (0.60.4):
@@ -119,6 +121,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-camera (from `../node_modules/react-native-camera`)
   - "react-native-cameraroll (from `../node_modules/@react-native-community/cameraroll`)"
+  - "react-native-slider (from `../node_modules/@react-native-community/slider`)"
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
   - React-RCTBlob (from `../node_modules/react-native/Libraries/Blob`)
@@ -168,6 +171,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-camera"
   react-native-cameraroll:
     :path: "../node_modules/@react-native-community/cameraroll"
+  react-native-slider:
+    :path: "../node_modules/@react-native-community/slider"
   React-RCTActionSheet:
     :path: "../node_modules/react-native/Libraries/ActionSheetIOS"
   React-RCTAnimation:
@@ -216,6 +221,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 73f24a02fa684ed6a2b828ba116874a2191ded88
   react-native-camera: 9bf6e0cdce0d7dc059d9836eb381d96f58f83d83
   react-native-cameraroll: c5598e8ae3d9b3cb717bf7c696e20707ff61c6ae
+  react-native-slider: 27bcb456301032f9c7ea077a12d781765b5d6c3a
   React-RCTActionSheet: 9f71d7ae3e8fb10e08d162cbf14c621349dbfab3
   React-RCTAnimation: 981d8c95b0e30918a9832ccac32af83562a27fae
   React-RCTBlob: 21e73d1020a302a75fed30dbaee9f15287b80baa
@@ -234,6 +240,6 @@ SPEC CHECKSUMS:
   TesseractOCRiOS: 90638afbe43d082433f2e76b384c7901d23956df
   yoga: c2c050f6ae6e222534760cc82f559b89214b67e2
 
-PODFILE CHECKSUM: f329b7418f6b582a9f234776ae336916599c69bd
+PODFILE CHECKSUM: 8f2e23631f0f9df40d2b3c0d8bc780d3321592bd
 
 COCOAPODS: 1.7.5

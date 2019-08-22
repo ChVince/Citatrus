@@ -21,6 +21,13 @@ export default {
         }
     },
 
+    setCitationLineWidth(value) {
+        return {
+            type: actions.SET_CITATION_LINE_WIDTH,
+            payload: value
+        }
+    },
+
     releaseCitationLine() {
         return {
             type: actions.RELEASE_LINE_CITATION

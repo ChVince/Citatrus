@@ -6,8 +6,8 @@ const initialState = {
     lines: { // past/present - implements 'Undo'
         past: [],
         present: []
-    },  // {id: ; start:x1,y1 ; end:x2,y2},
-    lineWidth: '10',
+    },  // {id: ; start:x1,y1 ; end:x2,y2; width; color},
+    lineWidth: 10,
     lineColor: '#12002559'
 };
 
@@ -97,6 +97,12 @@ export default function(state = initialState, action) {
                 lines: {past: [], present: []},
                 activePhotoURI: null
             };
+        }
+        case actions.SET_CITATION_LINE_WIDTH: {
+            return {
+                ...state,
+                lineWidth: action.payload
+            }
         }
         default:
             return state;

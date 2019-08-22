@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@react-native-community/cameraroll": "^1.1.1",
+    "@react-native-community/slider": "^2.0.0",
     "@terrylinla/react-native-sketch-canvas": "^0.8.0",
     "native-base": "^2.13.5",
     "react": "16.8.6",

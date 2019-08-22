@@ -30,6 +30,10 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(citationActions.updateCitationLine(line));
         },
 
+        setCitationLineWidth: (value) => {
+            dispatch(citationActions.setCitationLineWidth(value));
+        },
+
         onSnapClick: async (camera) => {
             if (camera) {
                 let data = await camera.takePictureAsync();

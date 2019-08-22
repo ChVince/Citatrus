@@ -27,7 +27,7 @@ export default class NoteList extends React.Component {
                 <FlatList
                     data={this.props.noteList}
                     renderItem={ ({item}) => (
-                        <TouchableOpacity onPress={() => this.props.openNote(item.id)} >
+                        <TouchableOpacity key={item.id} onPress={() => this.props.openNote(item.id)} >
                             <View style={styles.note}>
                                 <Text numberOfLines={1} ellipsizeMode={'tail'} style={styles.noteTitle}>
                                     {item.title}
