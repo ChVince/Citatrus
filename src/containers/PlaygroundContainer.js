@@ -55,6 +55,7 @@ const mapStateToProps = (state) => {
 };
 
 class CitationContainer extends Component {
+
     constructor(props) {
         super(props);
     }

@@ -1,63 +1,63 @@
 import * as actions from '../actions/actionTypes'
 
 const initialState = {
-    activeNoteId: null,
+    activeNoteIdx: null,
     list: [
         {
             id: 1,
             date: '13.05.2018',
             time: '14:50',
             title: 'My First Note!',
-            text: 'helo world bla blas wwwwwwwwwwwwwwwwwwwwbla bla bla bla'
+            text: 'one'
         },
         {
             id: 2,
             date: '13.05.2018',
             time: '14:50',
             title: 'My First Note!',
-            text: 'heślo world bla blawwww bla bla bla bla'
+            text: 'Two'
         },
         {
             id: 3,
             date: '13.05.2018',
             time: '14:50',
             title: 'My First Note!',
-            text: 'helo world bla bla bla bla bla bla'
+            text: '3'
         },
         {
             id: 4,
             date: '13.05.2018',
             time: '14:50',
             title: 'My First Note!',
-            text: 'helo world bla bla bla bla bla bla'
+            text: '4'
         },
         {
             id: 5,
             date: '13.05.2018',
             time: '14:50',
             title: 'My First Note!',
-            text: 'helo world bla bla bla bla bla bla'
+            text: '5'
         },
         {
             id: 6,
             date: '13.05.2018',
             time: '14:50',
             title: 'My First Note!',
-            text: 'helo world bla bla bla bla bla bla'
+            text: '6'
         },
         {
             id: 7,
             date: '13.05.2018',
             time: '14:50',
             title: 'My First Note!',
-            text: 'helo world bla bla bla bla bla bla'
+            text: '7'
         },
         {
             id: 8,
             date: '13.05.2018',
             time: '14:50',
             title: 'My First Note!',
-            text: 'helo world bla bla bla bla bla bla'
+            text: '8'
         }
     ] // { date: time: header: text: 'full' }
 };
@@ -65,15 +65,16 @@ const initialState = {
 export default function(state = initialState, action) {
     switch (action.type) {
         case actions.SET_ACTIVE_NOTE: {
+            let activeNoteIdx = state.list.findIndex(note => note.id === action.payload);
             return {
                 ...state,
-                activeNoteId: action.payload
+                activeNoteIdx: activeNoteIdx
             }
         }
         case actions.RELEASE_ACTIVE_NOTE: {
             return {
                 ...state,
-                activeNoteId: null
+                activeNoteIdx: null
             }
         }
         case actions.ADD_NOTE: {
@@ -95,26 +96,25 @@ export default function(state = initialState, action) {
         }
         case actions.REMOVE_ACTIVE_NOTE: {
             let nextList = state.list.slice();
-            let activeNoteIdx = nextList.findIndex(note => note.id === state.activeNoteId);
+            let activeNoteIdx = state.activeNoteIdx;
             nextList.splice(activeNoteIdx, 1);
 
-            let nextActiveNoteId = null;
+            let nextActiveNoteIdx = null;
             if (activeNoteIdx < nextList.length) {
-                nextActiveNoteId = nextList[activeNoteIdx].id;
+                nextActiveNoteIdx = activeNoteIdx;
             }
 
             return {
                 ...state,
                 list: nextList,
-                activeNoteId: nextActiveNoteId
+                activeNoteIdx: nextActiveNoteIdx
             }
 
         }
 
-        case actions.UPDATE_NOTE: {
+        case actions.UPDATE_ACTIVE_NOTE: {
             let nextList = state.list.slice();
-            let activeNoteIdx = nextList.findIndex(note => note.id === state.activeNoteId);
-            nextList[activeNoteIdx].text = action.payload;
+            nextList[state.activeNoteIdx].text = action.payload;
 
             return {
                 ...state,

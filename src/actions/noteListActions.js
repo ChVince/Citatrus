@@ -30,13 +30,13 @@ export default {
 
     removeActiveNote() {
         return {
-            type: actions.RELEASE_ACTIVE_NOTE
+            type: actions.REMOVE_ACTIVE_NOTE
         }
     },
 
-    updateNote(id, text) {
+    updateActiveNote(text) {
         return {
-            type: actions.UPDATE_NOTE,
+            type: actions.UPDATE_ACTIVE_NOTE,
             payload: text
         }
     }

@@ -29,21 +29,21 @@ export default class Note extends Component {
     }
 
     render() {
-        let activeNoteId = this.props.activeNoteId;
-        let activeNote = this.props.noteList[activeNoteId];
+        let activeNoteIdx = this.props.activeNoteIdx;
+        let activeNote = this.props.noteList[activeNoteIdx];
         return (
             <View style={styles.container}>
                 <View style={styles.topBar}>
                     <TouchableOpacity style={styles.backButton} onPress={() => this.onBack()}>
-                        <Icon name="chevron-left" size={35} color="black"/>
-                        <Text style={{marginBottom: 7, fontSize: 16}}>Notes</Text>
+                        <Icon name="chevron-left" size={35} color="#ffd73e"/>
+                        <Text style={{color: '#ffd73e', marginBottom: 7, fontSize: 16}}>Notes</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.shareButton} onPress={() => this.onShare(activeNote.text)}>
-                        <Icon name="share-apple" size={35} color="black"/>
+                    <TouchableOpacity onPress={() => this.onShare(activeNote.text)}>
+                        <Icon name="share-apple" size={35} color="#ffd73e"/>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.textarea}>
-                    <TextInput onChangeText={(text) => this.props.updateNote(text)} value={activeNote.text}/>
+                    <TextInput multiline={true} onChangeText={(text) => this.props.updateActiveNote(text)} value={activeNote.text}/>
                 </View>
                 <View style={styles.bottomBar}>
                     <TouchableOpacity onPress={() => this.onRemoveActiveNote()}>
@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
     textarea: {
         height: 70,
         flex: 2,
+        padding: 25,
         backgroundColor: '#f3f3f3'
     },
 

@@ -5,11 +5,11 @@ import { createMaterialTopTabNavigator, createAppContainer } from "react-navigat
 
 const AppNavigator = createMaterialTopTabNavigator(
     {
-       Playground: { screen: PlaygroundScreen },
+        Playground: { screen: PlaygroundScreen },
         NoteList: { screen: NoteListScreen },
     },
     {
-        swipeEnabled: true,
+        swipeEnabled: false,
         animationEnabled: true,
         tabBarOptions: {
             style: {

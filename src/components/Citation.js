@@ -226,7 +226,6 @@ class CitationSVG extends Component{
 
 
 export default class Citation extends Component {
-
     render() {
         return (
             <View style={styles.container}>

@@ -15,8 +15,8 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(noteListActions.releaseActiveNote());
         },
 
-        updateNote: (text) => {
-            dispatch(noteListActions.updateNote(text))
+        updateActiveNote: (text) => {
+            dispatch(noteListActions.updateActiveNote(text))
         },
 
         removeActiveNote: () => {
@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
     return {
         noteList: state.noteList.list,
-        activeNoteId: state.noteList.activeNoteId
+        activeNoteIdx: state.noteList.activeNoteIdx
     }
 };
 
@@ -39,7 +39,7 @@ class NoteListContainer extends Component {
 
     render() {
         return (
-            this.props.activeNoteId ?
+            this.props.activeNoteIdx !== null ?
                 <Note {...this.props}/> :
                 <NoteList {...this.props}/>
         )

@@ -15,7 +15,7 @@ export default class NoteList extends React.Component {
     renderHeader = () => (
         <View style={styles.header}>
             <TouchableOpacity style={styles.photoButton} onPress={() => this.props.navigation.navigate('Playground')}>
-                <Icon name="camera" size={35} color="black"/>
+                <Icon name="camera" size={35} color="#ffd73e"/>
             </TouchableOpacity>
             <Text style={styles.headerLabel}>Notes</Text>
         </View>
@@ -26,20 +26,18 @@ export default class NoteList extends React.Component {
             <View style={styles.container}>
                 <FlatList
                     data={this.props.noteList}
-                    renderItem={ ({item}) => (
-                        <TouchableOpacity key={item.id} onPress={() => this.props.openNote(item.id)} >
-                            <View style={styles.note}>
-                                <Text numberOfLines={1} ellipsizeMode={'tail'} style={styles.noteTitle}>
-                                    {item.title}
+                    renderItem={({item}) => (
+                        <TouchableOpacity style={styles.note} key={item.id} onPress={() => this.props.openNote(item.id)} >
+                            <Text numberOfLines={1} ellipsizeMode={'tail'} style={styles.noteTitle}>
+                                {item.title}
+                            </Text>
+                            <View style={{flexDirection: 'row'}}>
+                                <Text style={styles.noteDate}>
+                                    {item.date}
                                 </Text>
-                                <View style={{flexDirection: 'row'}}>
-                                    <Text style={styles.noteDate}>
-                                        {item.date}
-                                    </Text>
-                                    <Text numberOfLines={1} ellipsizeMode={'tail'} style={styles.noteText}>
-                                        {item.text}
-                                    </Text>
-                                </View>
+                                <Text numberOfLines={1} ellipsizeMode={'tail'} style={styles.noteText}>
+                                    {item.text}
+                                </Text>
                             </View>
                         </TouchableOpacity>
                     )}
@@ -84,7 +82,6 @@ const styles = StyleSheet.create({
     },
 
     note: {
-        overflow: 'hidden',
         marginLeft: 15,
         padding: 15,
         height: 70,
