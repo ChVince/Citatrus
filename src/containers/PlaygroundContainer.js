@@ -47,7 +47,7 @@ const mapDispatchToProps = (dispatch) => {
         onNoteCreate: (note) => {
             dispatch(noteActions.addNote(note));
             dispatch(citationActions.releasePhotoCitation());
-            Toast.showWithGravity('Note Created', 1, Toast.CENTER);
+            Toast.showWithGravity('Note Created', 3, Toast.CENTER);
         },
 
         onSnapClick: async (camera) => {

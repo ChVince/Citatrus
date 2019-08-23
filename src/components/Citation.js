@@ -20,21 +20,49 @@ import moment from 'moment';
 let VIEW_HEIGHT = '';
 let VIEW_WIDTH = '';
 
+//TODO incorrect scaleH
 function _normalizeDataByScale(lines, scaleH, scaleW) {
     return lines.map((line) => {
         let nextLine = {...line};
         nextLine.start.x1 *= scaleW;
-        nextLine.start.y1 *= scaleH;
+        nextLine.start.y1 = nextLine.start.y1 * scaleH - 25;
 
         nextLine.end.x2 *= scaleW;
-        nextLine.end.y2 *= scaleH;
+        nextLine.end.y2 = nextLine.end.y2 * scaleH - 25;
         return nextLine
     })
 }
 
-function isLineContainWord(line, wordCenter, accuracy) {
-    let res = (wordCenter.x - line.start.x1)/(line.end.x2 - line.start.x1) - (wordCenter.y - line.start.y1)/(line.end.y2 - line.start.y1)
-    return 10 >= Math.abs(res)
+//TODO incorrect  algoritm
+//http://qaru.site/questions/17109/how-can-i-determine-whether-a-2d-point-is-within-a-polygon
+function pointIsInPoly(p, polygon) {
+    let isInside = false;
+    let minX = polygon[0].x;
+    let maxX = polygon[0].x;
+    let minY = polygon[0].y;
+    let maxY = polygon[0].y;
+    for (let n = 0; n < polygon.length; n++) {
+        let node = polygon[n];
+        minX = Math.min(node.x, minX);
+        maxX = Math.max(node.x, maxX);
+        minY = Math.min(node.y, minY);
+        maxY = Math.max(node.y, maxY);
+    }
+
+    if (p.x < minX || p.x > maxX || p.y < minY || p.y > maxY) {
+        return false;
+    }
+
+   /* let i = 0;
+    let j = polygon.length - 1;
+    for (i, j; i < polygon.length; j = i++) {
+        if ((polygon[i].y > p.y) != (polygon[j].y > p.y) &&
+            p.x < (polygon[j].x - polygon[i].x) * (p.y - polygon[i].y) / (polygon[j].y - polygon[i].y) + polygon[i].x ) {
+            isInside = !isInside;
+        }
+    }*/
+
+    return true;
 }
 
 function _getWordCenter(bounding) {
@@ -44,16 +72,36 @@ function _getWordCenter(bounding) {
     }
 }
 
-function _getWordsByIntersection(lines, words, accuracy) {
+function _getWordsByIntersection(lines, words, scale) {
     let result = [];
     for (let line of lines) {
+        let boundaries = [
+            {
+                x: line.start.x1,
+                y: line.start.y1
+            },
+            {
+                x: line.end.x2,
+                y: line.end.y2
+            },
+            {
+                x: line.start.x1,
+                y: line.start.y1 + (line.width * scale)
+            },
+            {
+                x: line.end.x2,
+                y: line.end.y2 + (line.width * scale)
+            }
+        ];
         for (let word of words) {
             let wordCenter = _getWordCenter(word.bounding);
-            if (isLineContainWord(line, wordCenter, accuracy)) {
+            if (pointIsInPoly(wordCenter, boundaries)) {
                 result.push(word.text);
             }
         }
     }
+
+    return result.join(' ');
 }
 
 function _createNote(words) {
@@ -76,11 +124,10 @@ class CitationFooter extends Component {
         let scaleH = imageDimensions.imageHeight / VIEW_HEIGHT;
         let scaleW = imageDimensions.imageWidth / VIEW_WIDTH;
         let normalizedLines = _normalizeDataByScale(this.props.lines, scaleH, scaleW);
-        let words = _getWordsByIntersection(normalizedLines, recognizedText, this.props.lineWidth);
+        let words = _getWordsByIntersection(normalizedLines, recognizedText, scaleH);
         let note = _createNote(words);
         this.props.onCreateNoteEnd();
         this.props.onNoteCreate(note)
-
     }
 
     render() {
@@ -300,7 +347,12 @@ const styles = StyleSheet.create({
         top: '50%',
         position: 'absolute',
         alignSelf: 'center',
-        zIndex: 1
+        zIndex: 10,
+        shadowOpacity: 0.3,
+        textShadowOffset: {
+            width: 0,
+            height: 1
+        }
     },
 
     widthIndicator: (lineWidth) => ({
