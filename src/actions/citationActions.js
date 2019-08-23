@@ -1,11 +1,6 @@
 import * as actions from "./actionTypes";
 
 export default {
-    stopPhotoCitation() {
-        return {
-            type: actions.STOP_PHOTO_CITATION
-        }
-    },
 
     addCitationLine(line) {
         return {

@@ -8,6 +8,7 @@ import {
     Share
 } from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
+import moment from 'moment';
 
 export default class Note extends Component {
     constructor(props) {
@@ -38,6 +39,9 @@ export default class Note extends Component {
                         <Icon name="chevron-left" size={35} color="#ffd73e"/>
                         <Text style={{color: '#ffd73e', marginBottom: 7, fontSize: 16}}>Notes</Text>
                     </TouchableOpacity>
+                    <Text style={{marginBottom: 7}}>
+                        {moment(activeNote.date).calendar()}
+                    </Text>
                     <TouchableOpacity onPress={() => this.onShare(activeNote.text)}>
                         <Icon name="share-apple" size={35} color="#ffd73e"/>
                     </TouchableOpacity>
@@ -74,12 +78,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'flex-end',
         justifyContent: 'space-between',
-        paddingLeft: 5,
-        paddingRight: 8
+        paddingLeft: 0,
+        paddingRight: 25
     },
 
     backButton: {
-        flex: 1,
         flexDirection: 'row',
         alignItems: 'flex-end'
     },

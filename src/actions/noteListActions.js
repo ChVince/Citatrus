@@ -16,7 +16,7 @@ export default {
 
     addNote(note) {
         return {
-            type: actions.ADD_NOTE,
+            type: actions.ADD_NEW_NOTE_TO_LIST,
             payload: note
         }
     },

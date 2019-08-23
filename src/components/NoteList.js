@@ -6,6 +6,7 @@ import {Text,
     TouchableOpacity
 } from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
+import moment from 'moment';
 
 export default class NoteList extends React.Component {
     constructor(props) {
@@ -27,23 +28,18 @@ export default class NoteList extends React.Component {
                 <FlatList
                     data={this.props.noteList}
                     renderItem={({item}) => (
-                        <TouchableOpacity style={styles.note} key={item.id} onPress={() => this.props.openNote(item.id)} >
-                            <Text numberOfLines={1} ellipsizeMode={'tail'} style={styles.noteTitle}>
-                                {item.title}
+                        <TouchableOpacity style={styles.note}  onPress={() => this.props.openNote(item.id)} >
+                            <Text numberOfLines={1} ellipsizeMode={'tail'} style={styles.noteDate}>
+                                {moment(item.date).calendar()}
                             </Text>
-                            <View style={{flexDirection: 'row'}}>
-                                <Text style={styles.noteDate}>
-                                    {item.date}
-                                </Text>
-                                <Text numberOfLines={1} ellipsizeMode={'tail'} style={styles.noteText}>
-                                    {item.text}
-                                </Text>
-                            </View>
+                            <Text numberOfLines={1} ellipsizeMode={'tail'} style={styles.noteText}>
+                                {item.text}
+                            </Text>
                         </TouchableOpacity>
                     )}
                     ListHeaderComponent={this.renderHeader}
                     stickyHeaderIndices={[0]}
-                    keyExtractor={(item, index) => item.id}
+                    keyExtractor={(item) => item.id.toString()}
                 />
             </View>
         );
@@ -91,14 +87,9 @@ const styles = StyleSheet.create({
         color: '#434743'
     },
 
-    noteTitle: {
+    noteDate: {
         fontWeight: '900',
         color: '#474947'
-    },
-
-    noteDate: {
-        marginRight: 5,
-        color: '#b4b4b4'
     },
 
     noteText: {

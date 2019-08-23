@@ -2,68 +2,18 @@ import * as actions from '../actions/actionTypes'
 
 const initialState = {
     activeNoteIdx: null,
-    list: [
-        {
-            id: 1,
-            date: '13.05.2018',
-            time: '14:50',
-            title: 'My First Note!',
-            text: 'one'
-        },
-        {
-            id: 2,
-            date: '13.05.2018',
-            time: '14:50',
-            title: 'My First Note!',
-            text: 'Two'
-        },
-        {
-            id: 3,
-            date: '13.05.2018',
-            time: '14:50',
-            title: 'My First Note!',
-            text: '3'
-        },
-        {
-            id: 4,
-            date: '13.05.2018',
-            time: '14:50',
-            title: 'My First Note!',
-            text: '4'
-        },
-        {
-            id: 5,
-            date: '13.05.2018',
-            time: '14:50',
-            title: 'My First Note!',
-            text: '5'
-        },
-        {
-            id: 6,
-            date: '13.05.2018',
-            time: '14:50',
-            title: 'My First Note!',
-            text: '6'
-        },
-        {
-            id: 7,
-            date: '13.05.2018',
-            time: '14:50',
-            title: 'My First Note!',
-            text: '7'
-        },
-        {
-            id: 8,
-            date: '13.05.2018',
-            time: '14:50',
-            title: 'My First Note!',
-            text: '8'
-        }
-    ] // { date: time: header: text: 'full' }
+    list: [] // { date: text: 'full' }
 };
 
 export default function(state = initialState, action) {
     switch (action.type) {
+        case actions.PERSIST_REHYDRATE_ACTION_TYPE: {
+            return {
+                ...state,
+                list: action.payload.noteList.list,
+                activeNoteIdx: null
+            }
+        }
         case actions.SET_ACTIVE_NOTE: {
             let activeNoteIdx = state.list.findIndex(note => note.id === action.payload);
             return {
@@ -77,7 +27,7 @@ export default function(state = initialState, action) {
                 activeNoteIdx: null
             }
         }
-        case actions.ADD_NOTE: {
+        case actions.ADD_NEW_NOTE_TO_LIST: {
             let nextNoteList = [...state.list];
             nextNoteList.push(action.payload);
 

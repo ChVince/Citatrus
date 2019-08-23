@@ -1,5 +1,6 @@
 import citationActions from '../actions/citationActions'
 import cameraActions from "../actions/cameraActions";
+import noteActions from "../actions/noteListActions";
 
 import { connect } from 'react-redux'
 
@@ -32,6 +33,10 @@ const mapDispatchToProps = (dispatch) => {
 
         setCitationLineWidth: (value) => {
             dispatch(citationActions.setCitationLineWidth(value));
+        },
+
+        onNoteCreate: (note) => {
+            dispatch(noteActions.addNote(note));
         },
 
         onSnapClick: async (camera) => {

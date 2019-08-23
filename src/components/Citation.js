@@ -13,12 +13,13 @@ import {
 import Slider from '@react-native-community/slider';
 import RNIosTesseract from 'react-native-ios-tesseract';
 import Icon from 'react-native-vector-icons/EvilIcons';
+import moment from 'moment';
 
 
 let VIEW_HEIGHT = '';
 let VIEW_WIDTH = '';
 
-function normalizeDataByScale(lines, scaleH, scaleW) {
+function _normalizeDataByScale(lines, scaleH, scaleW) {
     return lines.map((line) => {
         let nextLine = {...line};
         nextLine.start.x1 *= scaleW;
@@ -42,7 +43,7 @@ function _getWordCenter(bounding) {
     }
 }
 
-function getWordsByIntersection(lines, words, accuracy) {
+function _getWordsByIntersection(lines, words, accuracy) {
     let result = [];
     for (let line of lines) {
         for (let word of words) {
@@ -51,6 +52,14 @@ function getWordsByIntersection(lines, words, accuracy) {
                 result.push(word.text);
             }
         }
+    }
+}
+
+function _createNote(words) {
+    return {
+        id: Math.floor(Math.random() * 100000),
+        date: moment(),
+        text: words
     }
 }
 
@@ -63,13 +72,15 @@ class CitationFooter extends Component {
         //TODO:// Implement
     }
 
-    async onAnnotate() {
+    async onNoteCreate() {
         //TODO: bugfix Algoritm
-        let {imageDimesions, recognizedText} = await RNIosTesseract.recognize(this.props.uri);
-        let scaleH = imageDimesions.imageHeight / VIEW_HEIGHT;
-        let scaleW = imageDimesions.imageWidth / VIEW_WIDTH;
-        let normalizedLines = normalizeDataByScale(this.props.lines, scaleH, scaleW);
-        let words = getWordsByIntersection(normalizedLines, recognizedText, this.props.lineWidth);
+        let {imageDimensions, recognizedText} = await RNIosTesseract.recognize(this.props.uri);
+        let scaleH = imageDimensions.imageHeight / VIEW_HEIGHT;
+        let scaleW = imageDimensions.imageWidth / VIEW_WIDTH;
+        let normalizedLines = _normalizeDataByScale(this.props.lines, scaleH, scaleW);
+        let words = _getWordsByIntersection(normalizedLines, recognizedText, this.props.lineWidth);
+        let note = _createNote(words);
+        this.props.onNoteCreate(note)
 
     }
 
@@ -90,7 +101,7 @@ class CitationFooter extends Component {
                 />
                 <View style={StyleSheet.flatten(styles.widthIndicator(lineWidth, lineColor))}/>
             </View>
-            <TouchableOpacity  disabled={isProcessingDisabled} style={[isProcessingDisabled ? styles.disabledButton : '']} onPress={() => this.onAnnotate()}>
+            <TouchableOpacity  disabled={isProcessingDisabled} style={[isProcessingDisabled ? styles.disabledButton : '']} onPress={() => this.onNoteCreate()}>
                 <Icon name="check" size={35} color="#ffd73e"/>
             </TouchableOpacity>
         </View>
@@ -210,7 +221,7 @@ class CitationSVG extends Component{
                 VIEW_WIDTH = layout.width;
                 VIEW_HEIGHT = layout.height;
             }}>
-                <ImageBackground  resizeMode={'stretch'} source={{uri: this.props.uri}} style={{width: '100%', height: '100%'}}>
+                <ImageBackground resizeMode={'stretch'} source={{uri: this.props.uri}} style={{width: '100%', height: '100%'}}>
                     <Svg
                         height="100%"
                         width="100%"
