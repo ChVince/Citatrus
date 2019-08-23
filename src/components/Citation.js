@@ -8,7 +8,8 @@ import {
     Text,
     Button,
     ImageBackground,
-    PanResponder
+    PanResponder,
+    ActivityIndicator
 } from 'react-native';
 import Slider from '@react-native-community/slider';
 import RNIosTesseract from 'react-native-ios-tesseract';
@@ -68,18 +69,16 @@ class CitationFooter extends Component {
         super(props);
     }
 
-    nextStrokeWidth() {
-        //TODO:// Implement
-    }
-
     async onNoteCreate() {
         //TODO: bugfix Algoritm
+        this.props.onCreateNoteStart();
         let {imageDimensions, recognizedText} = await RNIosTesseract.recognize(this.props.uri);
         let scaleH = imageDimensions.imageHeight / VIEW_HEIGHT;
         let scaleW = imageDimensions.imageWidth / VIEW_WIDTH;
         let normalizedLines = _normalizeDataByScale(this.props.lines, scaleH, scaleW);
         let words = _getWordsByIntersection(normalizedLines, recognizedText, this.props.lineWidth);
         let note = _createNote(words);
+        this.props.onCreateNoteEnd();
         this.props.onNoteCreate(note)
 
     }
@@ -221,6 +220,7 @@ class CitationSVG extends Component{
                 VIEW_WIDTH = layout.width;
                 VIEW_HEIGHT = layout.height;
             }}>
+                <ActivityIndicator style={styles.createNoteIndicator} size="large" color="#ffd73e" animating={this.props.showActivityIndicator}/>
                 <ImageBackground resizeMode={'stretch'} source={{uri: this.props.uri}} style={{width: '100%', height: '100%'}}>
                     <Svg
                         height="100%"
@@ -294,6 +294,13 @@ const styles = StyleSheet.create({
         marginRight: 5,
         height: 15,
         width: 75
+    },
+
+    createNoteIndicator: {
+        top: '50%',
+        position: 'absolute',
+        alignSelf: 'center',
+        zIndex: 1
     },
 
     widthIndicator: (lineWidth) => ({

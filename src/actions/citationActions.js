@@ -16,6 +16,20 @@ export default {
         }
     },
 
+
+    addNoteStart() {
+        return {
+            type: actions.ADD_NEW_NOTE_TO_LIST_START
+        }
+    },
+
+
+    addNoteEnd() {
+        return {
+            type: actions.ADD_NEW_NOTE_TO_LIST_END
+        }
+    },
+
     setCitationLineWidth(value) {
         return {
             type: actions.SET_CITATION_LINE_WIDTH,

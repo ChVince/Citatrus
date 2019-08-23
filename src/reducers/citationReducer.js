@@ -8,6 +8,7 @@ const initialState = {
         present: []
     },  // {id: ; start:x1,y1 ; end:x2,y2; width; color},
     lineWidth: 10,
+    showActivityIndicator: false,
     lineColor: '#12002559'
 };
 
@@ -17,6 +18,22 @@ export default function(state = initialState, action) {
             state = {
             ...state,
                 activePhotoURI: action.payload
+            };
+            return state;
+        }
+
+        case actions.ADD_NEW_NOTE_TO_LIST_START: {
+            state = {
+                ...state,
+                showActivityIndicator: true
+            };
+            return state;
+        }
+
+        case actions.ADD_NEW_NOTE_TO_LIST_END: {
+            state = {
+                ...state,
+                showActivityIndicator: false
             };
             return state;
         }

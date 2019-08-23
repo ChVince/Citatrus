@@ -10,7 +10,7 @@ export default function(state = initialState, action) {
         case actions.PERSIST_REHYDRATE_ACTION_TYPE: {
             return {
                 ...state,
-                list: action.payload.noteList.list,
+                list: action.payload ? action.payload.noteList.list: [],
                 activeNoteIdx: null
             }
         }

@@ -8,6 +8,7 @@ import React, {Component, Fragment} from 'react'
 import Citation from '../components/Citation'
 import Camera from '../components/Camera'
 import CameraRoll from "@react-native-community/cameraroll/js/CameraRoll";
+import Toast from 'react-native-simple-toast';
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -21,6 +22,14 @@ const mapDispatchToProps = (dispatch) => {
 
         onCitationStart: (line) => {
             dispatch(citationActions.addCitationLine(line));
+        },
+
+        onCreateNoteStart: () => {
+            dispatch(citationActions.addNoteStart());
+        },
+
+        onCreateNoteEnd: () => {
+            dispatch(citationActions.addNoteEnd());
         },
 
         onCitationRelease: () => {
@@ -37,6 +46,8 @@ const mapDispatchToProps = (dispatch) => {
 
         onNoteCreate: (note) => {
             dispatch(noteActions.addNote(note));
+            dispatch(citationActions.releasePhotoCitation());
+            Toast.showWithGravity('Note Created', 1, Toast.CENTER);
         },
 
         onSnapClick: async (camera) => {
@@ -54,6 +65,7 @@ const mapStateToProps = (state) => {
         uri: state.citation.activePhotoURI,
         lines: state.citation.lines.present,
         activeLine: state.citation.activeLine,
+        showActivityIndicator: state.citation.showActivityIndicator,
         lineWidth: state.citation.lineWidth,
         lineColor: state.citation.lineColor
     }
