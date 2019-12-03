@@ -9,7 +9,7 @@ ChVince
 ##Task list
 
 - [x] implement text highlight
-- [x] implement text recognition by highlited area (slow)
+- [ ] implement text recognition by highlited area (Partially done: bugs with percision)
 - [x] implemnet CRUD with in-app notes
 
 ##Status
